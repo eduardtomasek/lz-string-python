@@ -101,8 +101,8 @@ class LZString:
                         context_enlargeIn = pow(2, context_numBits)
                         context_numBits += 1
 
-                    #context_dictionaryToCreate.pop(context_w, None)
-                    del context_dictionaryToCreate[context_w]
+                    context_dictionaryToCreate.pop(context_w, None)
+                    #del context_dictionaryToCreate[context_w]
                 else:
                     value = context_dictionary[context_w]
 
@@ -188,8 +188,8 @@ class LZString:
                     context_enlargeIn = pow(2, context_numBits)
                     context_numBits += 1
 
-                #context_dictionaryToCreate.pop(context_w, None)
-                del context_dictionaryToCreate[context_w]
+                context_dictionaryToCreate.pop(context_w, None)
+                #del context_dictionaryToCreate[context_w]
             else:
                 value = context_dictionary[context_w]
 
