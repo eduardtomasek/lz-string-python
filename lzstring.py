@@ -373,6 +373,85 @@ class LZString:
 
         return output
 
+    #written by https://github.com/v-python
+    def decompressFromUTF16(self, string):
+        if not string:
+            return ""
+
+        output = ""
+        status = 0
+        i = 0
+
+        while i < len(string):
+            c = ord(string[i]) - 32
+            i += 1
+
+            if status == 0:
+                status = 1
+                current = c << 1
+            elif status == 1:
+                status = 2
+                output += chr(current + (c >> 14))
+                current = (c & 16383) << 2
+            elif status == 2:
+                status = 3
+                output += chr(current + (c >> 13))
+                current = (c & 8191) << 3
+            elif status == 3:
+                status = 4
+                output += chr(current + (c >> 12))
+                current = (c & 4095) << 4
+            elif status == 4:
+                status = 5
+                output += chr(current + (c >> 11))
+                current = (c & 2047) << 5
+            elif status == 5:
+                status = 6
+                output += chr(current + (c >> 10))
+                current = (c & 1023) << 6
+            elif status == 6:
+                status = 7
+                output += chr(current + (c >> 9))
+                current = (c & 511) << 7
+            elif status == 7:
+                status = 8
+                output += chr(current + (c >> 8))
+                current = (c & 255) << 8
+            elif status == 8:
+                status = 9
+                output += chr(current + (c >> 7))
+                current = (c & 127) << 9
+            elif status == 9:
+                status = 10
+                output += chr(current + (c >> 6))
+                current = (c & 63) << 10
+            elif status == 10:
+                status = 11
+                output += chr(current + (c >> 5))
+                current = (c & 31) << 11
+            elif status == 11:
+                status = 12
+                output += chr(current + (c >> 4))
+                current = (c & 15) << 12
+            elif status == 12:
+                status = 13
+                output += chr(current + (c >> 3))
+                current = (c & 7) << 13
+            elif status == 13:
+                status = 14
+                output += chr(current + (c >> 2))
+                current = (c & 3) << 14
+            elif status == 14:
+                status = 15
+                output += chr(current + (c >> 1))
+                current = (c & 1) << 15
+            elif status == 15:
+                status = 0
+                output += chr(current + c)
+                current = (c & 1) << 15
+
+        return self.decompress(output)
+
     def decompress(self, compressed):
 
         if (compressed is None) or (compressed == ''):
