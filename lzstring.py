@@ -312,7 +312,7 @@ class LZString:
                 current = (c & 1) << 14
             elif status == 1:
                 status += 1
-                output = chr(((current + (c >> 2)) + 32))
+                output += chr(((current + (c >> 2)) + 32))
                 current = (c & 3) << 13
             elif status == 2:
                 status += 1
