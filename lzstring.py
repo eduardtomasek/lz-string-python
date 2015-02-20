@@ -250,12 +250,10 @@ class LZString:
         enc3 = 0
         enc4 = 0
 
-        i = 0
-
         string = self.compress(string)
         strlen = len(string)
 
-        while i < (strlen * 2):
+        for i in range(0, strlen * 2, 3):
             if (i % 2) == 0:
                 chr1 = ord(string[int(i / 2)]) >> 8
                 chr2 = ord(string[int(i / 2)]) & 255
@@ -272,8 +270,6 @@ class LZString:
                 else:
                     chr2 = float('NaN')
                     chr3 = float('NaN')
-
-            i += 3
 
             # python dont support bit operation with NaN like javascript
             enc1 = chr1 >> 2
