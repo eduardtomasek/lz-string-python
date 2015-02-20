@@ -257,18 +257,18 @@ class LZString:
 
         while i < (strlen * 2):
             if (i % 2) == 0:
-                chr1 = ord(string[int(i / 2)]) >> 8
-                chr2 = ord(string[int(i / 2)]) & 255
+                chr1 = ord(string[i // 2]) >> 8
+                chr2 = ord(string[i // 2]) & 255
 
                 if (i / 2) + 1 < strlen:
-                    chr3 = ord(string[int((i / 2) + 1)]) >> 8
+                    chr3 = ord(string[(i // 2) + 1]) >> 8
                 else:
                     chr3 = float('NaN')
             else:
-                chr1 = ord(string[int((i - 1) / 2)]) & 255
+                chr1 = ord(string[(i - 1) // 2]) & 255
                 if (i + 1) / 2 < strlen:
-                    chr2 = ord(string[int((i + 1) / 2)]) >> 8
-                    chr3 = ord(string[int((i + 1) / 2)]) & 255
+                    chr2 = ord(string[(i + 1) // 2]) >> 8
+                    chr3 = ord(string[(i + 1) // 2]) & 255
                 else:
                     chr2 = float('NaN')
                     chr3 = float('NaN')
