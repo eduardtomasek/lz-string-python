@@ -630,15 +630,13 @@ class LZString:
 
         iinput = re.sub(r'[^A-Za-z0-9\+\/\=]', '', iinput)
 
-        while i < len(iinput):
-            enc1 = self.keyStr.index(iinput[i])
-            i += 1
-            enc2 = self.keyStr.index(iinput[i])
-            i += 1
-            enc3 = self.keyStr.index(iinput[i])
-            i += 1
-            enc4 = self.keyStr.index(iinput[i])
-            i += 1
+        for i in range(0, len(iinput), 4):
+            enc1, enc2, enc3, enc4 = (
+                self.keyStr.index(iinput[i]),
+                self.keyStr.index(iinput[i+1]),
+                self.keyStr.index(iinput[i+2]),
+                self.keyStr.index(iinput[i+3]),
+            )
 
             chr1 = (enc1 << 2) | (enc2 >> 4)
             chr2 = ((enc2 & 15) << 4) | (enc3 >> 2)
