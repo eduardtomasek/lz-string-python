@@ -225,14 +225,11 @@ class LZString:
 
             value = value >> 1
 
-        while True:
+        context_data_val = (context_data_val << 1)
+        while context_data_position != 15:
+            context_data_position += 1
             context_data_val = (context_data_val << 1)
-
-            if context_data_position == 15:
-                context_data_string += chr(context_data_val)
-                break
-            else:
-                context_data_position += 1
+        context_data_string += chr(context_data_val)
 
         return context_data_string
 
