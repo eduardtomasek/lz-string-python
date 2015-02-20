@@ -376,11 +376,9 @@ class LZString:
 
         output = ""
         status = 0
-        i = 0
 
-        while i < len(string):
-            c = ord(string[i]) - 32
-            i += 1
+        for i, k in enumerate(string):
+            c = ord(k) - 32
 
             if status == 0:
                 status = 1
