@@ -254,12 +254,10 @@ class LZString:
         enc3 = 0
         enc4 = 0
 
-        i = 0
-
         string = self.compress(string)
         strlen = len(string)
 
-        while i < (strlen * 2):
+        for i in range(0, strlen * 2, 3):
             if (i % 2) == 0:
                 chr1 = ord(string[int(i / 2)]) >> 8
                 chr2 = ord(string[int(i / 2)]) & 255
@@ -276,8 +274,6 @@ class LZString:
                 else:
                     chr2 = float('NaN')
                     chr3 = float('NaN')
-
-            i += 3
 
             # python dont support bit operation with NaN like javascript
             enc1 = chr1 >> 2
@@ -384,11 +380,9 @@ class LZString:
 
         output = ""
         status = 0
-        i = 0
 
-        while i < len(string):
-            c = ord(string[i]) - 32
-            i += 1
+        for i, k in enumerate(string):
+            c = ord(k) - 32
 
             if status == 0:
                 status = 1
@@ -640,15 +634,13 @@ class LZString:
 
         iinput = re.sub(r'[^A-Za-z0-9\+\/\=]', '', iinput)
 
-        while i < len(iinput):
-            enc1 = self.keyStr.index(iinput[i])
-            i += 1
-            enc2 = self.keyStr.index(iinput[i])
-            i += 1
-            enc3 = self.keyStr.index(iinput[i])
-            i += 1
-            enc4 = self.keyStr.index(iinput[i])
-            i += 1
+        for i in range(0, len(iinput), 4):
+            enc1, enc2, enc3, enc4 = (
+                self.keyStr.index(iinput[i]),
+                self.keyStr.index(iinput[i+1]),
+                self.keyStr.index(iinput[i+2]),
+                self.keyStr.index(iinput[i+3]),
+            )
 
             chr1 = (enc1 << 2) | (enc2 >> 4)
             chr2 = ((enc2 & 15) << 4) | (enc3 >> 2)
